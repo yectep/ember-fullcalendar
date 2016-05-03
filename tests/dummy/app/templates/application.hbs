@@ -1,5 +1,3 @@
-<h2 id="title">Welcome to Ember</h2>
-
 <ul>
 {{#each eventsArray as |event|}}
   <li>{{event.title}} <button onclick={{action "removeEvent" event}}>x</button></li>
@@ -8,4 +6,8 @@
 
 {{input value=eventTitle}} <button onclick={{action "addEvent" event}}>Add</button>
 
-{{full-calendar events=eventsArray}}
+<button onclick={{action "changeView" "month"}}>Month</button>
+<button onclick={{action "changeView" "agendaWeek"}}>Week</button>
+<button onclick={{action "changeView" "agendaDay"}}>Day</button>
+
+{{full-calendar events=eventsArray viewName=viewName}}

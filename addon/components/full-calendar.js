@@ -42,7 +42,7 @@ export default Ember.Component.extend(InvokeActionMixin, {
     'timezone', 'now',
 
     // views
-    'views', 'defaultView',
+    'views',
 
     // agenda options
     'allDaySlot', 'allDayText', 'slotDuration', 'slotLabelFormat', 'slotLabelInterval', 'snapDuration', 'scrollTime',
@@ -158,6 +158,11 @@ export default Ember.Component.extend(InvokeActionMixin, {
         options[optionName] = this.get(optionName);
       }
     });
+
+    //manual options
+    if (this.get('viewName') !== undefined) {
+      options['defaultView'] = this.get('viewName');
+    }
 
     return options;
   }),
@@ -277,6 +282,12 @@ export default Ember.Component.extend(InvokeActionMixin, {
     let eventObject = getProperties(data, ...this.get('eventObjectProperties'));
     eventObject.originalObject = data;
     return eventObject;
-  }
-
+  },
+  /////////////////////////////////////
+  // OBSERVERS
+  /////////////////////////////////////
+  viewNameDidChange: Ember.observer('viewName', function() {
+    let viewName = this.get('viewName');
+    this.$().fullCalendar('changeView', viewName);
+  })
 });

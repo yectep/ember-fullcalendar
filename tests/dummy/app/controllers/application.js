@@ -2,7 +2,7 @@ import Ember from 'ember';
 const { Controller } = Ember;
 
 export default Controller.extend({
-
+  viewName: 'agendaWeek',
   eventsArray: Ember.A([{
      //id: 1,
      title: 'Event 1',
@@ -34,7 +34,9 @@ export default Controller.extend({
           end: '2016-01-11T09:08:08'
         });
      },
-
+     changeView(viewName) {
+       this.set('viewName', viewName);
+     },
      removeEvent(e) {
        this.get('eventsArray').removeObject(e);
      }
